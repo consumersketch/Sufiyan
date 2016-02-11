@@ -1,0 +1,55 @@
+<h1> Invoice Report</h1>
+
+ <form id="myForm" action="" method="post" >
+  Client:
+   	<select class="client-selector" >
+   		<option value="">Select Client</option>
+   		{% for client in clients %}
+        	<option value="{{ client['client_id'] }}">{{ client['client_name'] }}</option>
+    	{% endfor %}
+	</select> 
+
+
+
+  Product:
+   <select class="product-selector" >
+  		<option value="">Select Product</option>
+	</select>
+
+  Date:
+	<select class="date-selector" >
+  		<option value="last_month_to_date">Last Month To Date</option>
+  		<option value="this_month">This Month</option>
+  		<option value="this_year">This Year</option>
+  		<option value="last_year">Last Year</option>
+	</select>
+
+	<input type="submit" value="Get Report" /> 
+</form>
+
+<table style="width:100%">
+									<tr>
+									    <td>Invoice Num</td>
+									    <td>Invoice Date</td>
+									    <td>Product</td>
+									    <td>Qty</td>
+									    <td>Price</td>
+									    <td>Total</td>
+									</tr>
+									<tbody class="data-append"></tbody>
+
+</table>
+
+{% block javascript %}
+	<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+	<script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+
+
+	{% javascripts
+        '@ProductInvoiceBundle/Resources/public/js/invoice.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
